@@ -1,0 +1,8 @@
+# Pycharm 带来的
+.idea/
+.venv/
+
+# 所有的 __pycache__ 文件夹
+**/__pycache__/
+
+numpy学习笔记.md
