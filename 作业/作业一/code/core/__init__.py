@@ -7,7 +7,12 @@ from .geometry import Triangle, create_jagged_triangle, create_thin_triangles
 from .rasterizer import Rasterization
 
 __all__ = [
-    'LookAt', 'Ortho', 'Perspective', 'Quaternion',
-    'Triangle', 'create_jagged_triangle', 'create_thin_triangles',
-    'Rasterization'
+    "LookAt",
+    "Ortho",
+    "Perspective",
+    "Quaternion",
+    "Triangle",
+    "create_jagged_triangle",
+    "create_thin_triangles",
+    "Rasterization",
 ]
