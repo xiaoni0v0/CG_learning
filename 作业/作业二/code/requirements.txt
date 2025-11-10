@@ -1,0 +1,15 @@
+
+### requirements.txt
+
+# OpenGL bindings
+PyOpenGL==3.1.10
+PyOpenGL-accelerate==3.1.10
+
+# Mathematics library
+PyGLM==2.8.2
+
+# Image processing
+Pillow==11.3.0
+
+# NumPy for numerical operations
+numpy==2.2.6
