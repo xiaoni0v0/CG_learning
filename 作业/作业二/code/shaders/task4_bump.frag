@@ -27,8 +27,41 @@ uniform float bumpStrength;
 
 out vec4 FragColor;
 
-void main() {
+// 材料属性
+uniform float ka;
+uniform float kd;
+uniform float ks;
+uniform float shininess;
 
-	vec3 color = vec3(0.75);
-    FragColor = vec4(color, 1.0);
+void main() {
+    // 法线 N
+    vec3 N = normalize(vNormal);
+    float B = texture(texBump, vTexCoord).r;
+    vec3 P = vWorldPos;
+    N = normalize(
+        N
+        + bumpStrength * (
+        dFdx(B) * normalize(dFdx(P))
+        +
+        dFdy(B) * normalize(dFdy(P))
+        )
+    );
+
+    // 光源方向 L
+    vec3 L = normalize(lightPos - vWorldPos);
+    // 视线方向 V
+    vec3 V = normalize(viewPos - vWorldPos);
+    // 半程向量 H
+    vec3 H = normalize(L + V);
+    // 光源距离 r
+    float r = length(lightPos - vWorldPos);
+
+    // 带入 Blinn-Phong 模型
+    vec3 ambient = ka * lightColor;
+    vec3 diffuse = kd * lightColor * max(dot(N, L), 0) / (r * r);
+    vec3 specular = ks * lightColor * pow(max(dot(N, H), 0), shininess) / (r * r);
+
+    FragColor = vec4(
+    texture(texDiffuse, vTexCoord).rgb * (ambient + diffuse + specular) * lightIntensity,
+    1);
 }

@@ -4,9 +4,9 @@
  * 任务5：阴影顶点着色器（框架提供，学生无需修改）
  */
 
-layout(location = 0) in vec4 position;
-layout(location = 1) in vec2 texcoord;
-layout(location = 2) in vec3 normal;
+layout (location = 0) in vec4 position;
+layout (location = 1) in vec2 texcoord;
+layout (location = 2) in vec3 normal;
 
 uniform mat4 MVP;
 uniform mat4 M;

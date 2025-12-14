@@ -24,20 +24,42 @@
  * - 法线 = normalize(cross(edge1, edge2))
  */
 
-in vec2 vTexCoord;
-in vec3 vNormal;
-in vec3 vWorldPos;
+in vec2 vTexCoord; // 顶点的纹理坐标
+in vec3 vNormal;   // 顶点处的法向量
+in vec3 vWorldPos; // 顶点的世界坐标
 
-uniform sampler2D texDiffuse;
-uniform vec3 lightPos;
-uniform vec3 viewPos;
-uniform vec3 lightColor;
-uniform float lightIntensity;
+uniform sampler2D texDiffuse; // 纹理贴图
+uniform vec3 lightPos;        // 光源位置
+uniform vec3 viewPos;         // 视点位置
+uniform vec3 lightColor;      // 光源颜色
+uniform float lightIntensity; // 光源强度
 
-out vec4 FragColor;
+out vec4 FragColor; // 输出，当前片元的颜色
+
+// 材料属性
+uniform float ka;
+uniform float kd;
+uniform float ks;
+uniform float shininess;
 
 void main() {
+    // 法线 N
+    vec3 N = normalize(cross(dFdx(vWorldPos), dFdy(vWorldPos)));
+    // 光源方向 L
+    vec3 L = normalize(lightPos - vWorldPos);
+    // 视线方向 V
+    vec3 V = normalize(viewPos - vWorldPos);
+    // 半程向量 H
+    vec3 H = normalize(L + V);
+    // 光源距离 r
+    float r = length(lightPos - vWorldPos);
 
-	vec3 color = vec3(0.75);
-    FragColor = vec4(color, 1.0);
+    // 带入 Blinn-Phong 模型
+    vec3 ambient = ka * lightColor;
+    vec3 diffuse = kd * lightColor * max(dot(N, L), 0) / (r * r);
+    vec3 specular = ks * lightColor * pow(max(dot(N, H), 0), shininess) / (r * r);
+
+    FragColor = vec4(
+    texture(texDiffuse, vTexCoord).rgb * (ambient + diffuse + specular) * lightIntensity,
+    1);
 }

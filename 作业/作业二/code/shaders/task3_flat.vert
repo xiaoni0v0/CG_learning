@@ -12,9 +12,9 @@
  * - 纹理坐标直接传递即可
  */
 
-layout(location = 0) in vec4 position;
-layout(location = 1) in vec2 texcoord;
-layout(location = 2) in vec3 normal;
+layout (location = 0) in vec4 position;
+layout (location = 1) in vec2 texcoord;
+layout (location = 2) in vec3 normal;
 
 uniform mat4 MVP;
 uniform mat4 M;
@@ -29,4 +29,5 @@ void main() {
     vTexCoord = texcoord;
     vNormal = mat3(M) * normal;
     vWorldPos = (M * position).xyz;
+
 }

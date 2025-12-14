@@ -8,9 +8,9 @@
  * 2. 光照计算在片段着色器中进行
  */
 
-layout(location = 0) in vec4 position;
-layout(location = 1) in vec2 texcoord;
-layout(location = 2) in vec3 normal;
+layout (location = 0) in vec4 position;
+layout (location = 1) in vec2 texcoord;
+layout (location = 2) in vec3 normal;
 
 uniform mat4 MVP;
 uniform mat4 M;
@@ -20,7 +20,6 @@ out vec3 vNormal;
 out vec3 vWorldPos;
 
 void main() {
-
     gl_Position = MVP * position;
     vTexCoord = texcoord;
     vNormal = mat3(M) * normal;

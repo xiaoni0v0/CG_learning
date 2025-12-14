@@ -1,3 +1,7 @@
+black
+
 numpy
-PyOpenGL
+PyOpenGL==3.1.10
+PyOpenGL-accelerate==3.1.10
 pillow
+PyGLM
